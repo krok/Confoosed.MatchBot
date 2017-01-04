@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
 
-namespace Confoosed.MatchBot.Models
+namespace Confoosed.MatchLogic.Model
 {
     public class Player
     {
-        private readonly IList<Match> _matches;
+        private readonly IList<FoosMatch> _matches;
 
         public Player(string id)
         {
             Id = id;
-            _matches = new List<Match>();
+            _matches = new List<FoosMatch>();
         }
 
         public string Id { get; }
 
         public int? Ranking { get; set; }
 
-        public IEnumerable<Match> GetMatches()
+        public IEnumerable<FoosMatch> GetMatches()
         {
             return _matches;
         }
 
-        public void AddMatch(Match match)
+        public void AddMatch(FoosMatch match)
         {
             _matches.Add(match);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Confoosed.MatchBot.Common
+namespace Confoosed.MatchLogic.Extensions
 {
     public static class ComparerExtensions
     {

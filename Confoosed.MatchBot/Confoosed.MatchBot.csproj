@@ -67,18 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Extensions\MatchExtension.cs" />
-    <Compile Include="Extensions\GroupExtension.cs" />
-    <Compile Include="Projections\Ranking.cs" />
+    <Compile Include="ChannelHistory\Channel.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Common\ComparerExtensions.cs" />
-    <Compile Include="Models\Group.cs" />
-    <Compile Include="Projections\GroupCreator.cs" />
-    <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="MessageParser\MessageParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,12 +85,18 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Confoosed.MatchLogic\Confoosed.MatchLogic.csproj">
+      <Project>{e95c9f8a-2db6-4643-b0fa-d5834b2050e3}</Project>
+      <Name>Confoosed.MatchLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+    <None Include="Properties\PublishProfiles\ConfoosedMatchBot - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

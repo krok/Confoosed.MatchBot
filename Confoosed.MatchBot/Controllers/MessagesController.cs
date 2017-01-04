@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Bot.Connector;
 
@@ -16,13 +18,29 @@ namespace Confoosed.MatchBot.Controllers
             //msg.Text = message.Text;
 
             //return await Task.FromResult<Message>(msg);
+
+
             return await Response(message);
+        }
+
+        public async Task<Message> Get()
+        {
+            return await Response(new Message("I'm alive"));
         }
 
         private static async Task<Message> Response(Message message)
         {
+            if (message.Text.Equals("ranking", StringComparison.CurrentCultureIgnoreCase))
+            {
+                var messages = GetMessagesFromThread();
+            }
             await Task.Yield();
-            return message.CreateReplyMessage(".");
+            return message.CreateReplyMessage("Hello");
+        }
+
+        private static IEnumerable<Message> GetMessagesFromThread()
+        {
+            yield break;
         }
     }
 }

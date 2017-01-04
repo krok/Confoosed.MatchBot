@@ -1,27 +1,27 @@
 ﻿using System;
 
-namespace Confoosed.MatchBot.Models
+namespace Confoosed.MatchLogic.Model
 {
-    public class Match
+    public class FoosMatch
     {
         private static int _idCounter = 1;
 
-        public Match(Player winner, Player looser)
+        public FoosMatch(Player winner, Player looser)
             : this(winner, looser, null, null, DateTime.UtcNow)
         {
         }
 
-        public Match(Player winner, Player looser, int? goalsWinner, int? looserWinner)
-            : this(winner, looser, goalsWinner, looserWinner, DateTime.UtcNow)
+        public FoosMatch(Player winner, Player looser, int? goalsWinner, int? goalsLooser)
+            : this(winner, looser, goalsWinner, goalsLooser, DateTime.UtcNow)
         {
         }
 
-        public Match(Player winner, Player looser, int? goalsWinner, int? looserWinner, DateTime registered)
+        public FoosMatch(Player winner, Player looser, int? goalsWinner, int? goalsLooser, DateTime registered)
         {
             Winner = winner;
             Looser = looser;
             GoalsWinner = goalsWinner;
-            LooserWinner = looserWinner;
+            GoalsLooser = goalsLooser;
             Registered = registered;
             Id = _idCounter++;
             winner.AddMatch(this);
@@ -35,6 +35,6 @@ namespace Confoosed.MatchBot.Models
         public Player Looser { get; }
 
         public int? GoalsWinner { get; }
-        public int? LooserWinner { get; }
+        public int? GoalsLooser { get; }
     }
 }

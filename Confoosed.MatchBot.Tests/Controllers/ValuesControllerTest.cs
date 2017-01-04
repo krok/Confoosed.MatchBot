@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Web.Http;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Confoosed.MatchBot;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Confoosed.MatchBot.Controllers;
 using Microsoft.Bot.Connector;
 
 namespace Confoosed.MatchBot.Tests.Controllers
 {
-    [TestClass]
+    //[TestClass]
     public class ValuesControllerTest
     {
         [TestMethod, Ignore]

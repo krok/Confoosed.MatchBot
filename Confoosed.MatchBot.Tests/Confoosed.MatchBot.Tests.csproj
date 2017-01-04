@@ -50,7 +50,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviour\BuilderTests.cs" />
+    <Compile Include="MatchLogic\MatchParserTest.cs" />
+    <Compile Include="MatchLogic\ResultParserTest.cs" />
+    <Compile Include="MatchLogic\PlayerParserTest.cs" />
+    <Compile Include="MatchLogic\MatchLogicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>
@@ -66,6 +69,10 @@
     <ProjectReference Include="..\Confoosed.MatchBot\Confoosed.MatchBot.csproj">
       <Project>{36206CE7-DAFD-4A3A-83C0-2BFDA342D070}</Project>
       <Name>Confoosed.MatchBot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Confoosed.MatchLogic\Confoosed.MatchLogic.csproj">
+      <Project>{e95c9f8a-2db6-4643-b0fa-d5834b2050e3}</Project>
+      <Name>Confoosed.MatchLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Confoosed.MatchBot.Models
+namespace Confoosed.MatchLogic.Model
 {
     public class Group
     {
@@ -21,7 +21,7 @@ namespace Confoosed.MatchBot.Models
 
         public IList<Player> Players { get; }
 
-        public IEnumerable<Match> GetMatches()
+        public IEnumerable<FoosMatch> GetMatches()
         {
             return Players.SelectMany(p => p.GetMatches());
         }

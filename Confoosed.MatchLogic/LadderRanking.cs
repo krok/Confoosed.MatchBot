@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Confoosed.MatchBot.Extensions;
-using Confoosed.MatchBot.Models;
+using Confoosed.MatchLogic.Extensions;
+using Confoosed.MatchLogic.Model;
 
-namespace Confoosed.MatchBot.Projections
+namespace Confoosed.MatchLogic
 {
-    public static class Ranking
+    public static class LadderRanking
     {
-        public static void RankPlayers(IEnumerable<Group> groups)
+        public static IOrderedEnumerable<Player> GetPlayersByRanking(IEnumerable<FoosMatch> matches)
+        {
+            var list = matches.GetGroupsBySize().ToList();
+            if (list.Any(g => g.Players.Any(p => !p.Ranking.HasValue)))
+                RankGroupsAndPlayers(list);
+            return list.GetGroupsBySize().SelectMany(p => p.Players).OrderBy(p => p.Ranking);
+        }
+
+        private static void RankGroupsAndPlayers(IEnumerable<Group> groups)
         {
             var count = 0;
             var list = groups.ToList();
             foreach (var group in list.GetGroupsBySize())
             {
-                RankPlayers(group, count);
+                RankGroupOfPlayers(group, count);
                 count = count + group.Players.Count;
             }
         }
 
-        private static void RankPlayers(Group group, int count)
+        private static void RankGroupOfPlayers(Group group, int count)
         {
             foreach (var match in group.GetMatches().OrderBy(m => m.Id))
                 UpdateRanking(group, () => GetNextRank(count, group), match);
@@ -31,7 +39,7 @@ namespace Confoosed.MatchBot.Projections
             return lowestRanking > 0 ? lowestRanking.Value + 1 : count + 1;
         }
 
-        private static void UpdateRanking(Group group, Func<int> nextRank, Match match)
+        private static void UpdateRanking(Group group, Func<int> nextRank, FoosMatch match)
         {
             var winner = match.Winner;
             var looser = match.Looser;
@@ -44,7 +52,7 @@ namespace Confoosed.MatchBot.Projections
                 looser.Ranking = nextRank();
         }
 
-        private static void UpdateRanking(Group @group, Player winner, Player looser)
+        private static void UpdateRanking(Group group, Player winner, Player looser)
         {
             if (!winner.Ranking.HasValue || !looser.Ranking.HasValue || !(winner.Ranking > looser.Ranking)) return;
 
@@ -69,8 +77,10 @@ namespace Confoosed.MatchBot.Projections
 
             if (winner.Ranking.Value - looser.Ranking.Value == 2)
             {
-                group.Players.FirstOrDefault(p => p.Ranking.GetValueOrDefault() == (looser.Ranking.Value + 1)).Ranking =
-                    looser.Ranking.Value + 2;
+                var player =
+                    group.Players.FirstOrDefault(p => p.Ranking.GetValueOrDefault() == looser.Ranking.Value + 1);
+                if (player != null)
+                    player.Ranking = looser.Ranking.Value + 2;
             }
             var newRanking = looser.Ranking;
             looser.Ranking = winner.Ranking;
